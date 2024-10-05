@@ -8,13 +8,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .low-stock-warning {
-            /* background-color: #ff9800; */
             color: #fff;
             padding: 10px;
             margin-top: 20px;
             text-align: center;
             display: none;
-            /* width: 40%; */
             margin: 10px auto;
             border: 1px solid black;
             position: relative;
@@ -37,7 +35,6 @@
             scrollbar-width: none;
             scroll-behavior: smooth
         }
-        
     </style>
 </head>
 <body class="bg-[#101921] text-white font-sans">
@@ -65,8 +62,8 @@
             <!-- Expiring Soon Section -->
             <div class="bg-gray-700 rounded-lg p-6 h-53">
                 <section id="expiring-soon" class="mb-12">
-                    <h2 class="text-2xl font-bold mb-4">Expiring Soon</h2>
-                    <ul id="recent-activities" class="space-y-2">
+                    <h2 class="font-bold mb-4">Expiring Soon</h2>
+                    <ul id="recent-activities" class="space-y-3" >
                         <!-- Items will be populated here from localStorage -->
                     </ul>
                 </section>
@@ -202,15 +199,15 @@
 
         expiringSoon.forEach(item => {
             const listItem = document.createElement('li');
-            listItem.classList.add('flex', 'items-center', 'justify-between');
+            listItem.classList.add('flex', 'items-center', 'justify-between', 'gap-0');
 
             const badge = document.createElement('span');
-            badge.classList.add('bg-yellow-500', 'text-black-900', 'text-xs', 'font-medium', 'px-2', 'py-1', 'rounded-full', 'mr-2');
+            badge.classList.add('bg-yellow-500', 'text-black-900', 'text-xs', 'font-medium', 'px-2', 'py-1', 'rounded-full', 'ml-14', 'mr-2');
             badge.textContent = 'Expiring Soon';
 
             const text = document.createElement('span');
             text.textContent = `${item.name} expires on ${item.expiry}`; // Use backticks for template literals
-
+            text.classList.add('mr-auto')
             listItem.appendChild(badge);
             listItem.appendChild(text);
             recentActivities.appendChild(listItem);
