@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" href="Labtour.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Lab Tour</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+        :root{
+    --font: sans;
+    --color:white;
+    --cardcolor:#4a5568;
+    --bgc:gray;
+}
+
+*{
+    background-color: #101921;
+}
+
+.container{
+    padding:70px;
+    margin: 20px;
+}
+
+.container h1{
+    color:var(--color);
+    font-family: var(--font);
+    font-size: xx-large;
+    font-weight:900;
+}
+
+.container h2{
+    margin-left: 450px;
+}
+
+.container p{
+    color: var(--color);
+    font-family: var(--font);
+    margin: 30px;
+    padding-bottom: 5px;
+}
+
+.container h2{
+    color:var(--color);
+    font-family: var(--font);
+    font-size: xx-large;
+    font-weight:900;
+    margin-bottom: 20px;
+}
+
+.cardcontainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns, each taking an equal fraction of the space */
+    gap: 1rem; /* Space between cards */
+    justify-content: center; /* Center the grid horizontally */
+    align-items: center; /* Center the grid items vertically */
+}
+
+.card {
+    width: 400px; /* Adjust width to fill the grid cell */
+    height: 600px; /* Fixed height for cards */
+    background-color: var(--cardcolor);
+    border-radius: 10px;
+    box-shadow: 0px 10px 10px 0px black;
+    overflow: auto;
+    scrollbar-width: 0;
+    transition: transform 0.3s ease;
+    scrollbar-width: none;
+    scrollbar-color: red;
+}
+
+.card:hover{
+    transform: scale(1.05);
+}
+.card img{
+    width: 90%;
+    height:300px;
+    border-radius: 10px;
+    display: block;
+    object-fit: cover;
+    font-family: var(--font);
+    margin: 20px;
+    position: sticky;
+}
+
+
+.card p{
+    overflow: hidden;
+    flex-grow: 0;
+    background-color:var(--cardcolor);
+    color: black;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    gap:150px;
+}
+
+.dropdown{
+    color: var(--color);
+    font-family: var(--font);
+}
+
+.labnames{
+    border: white solid 3px;
+    border-radius: 9px;
+    height: 30px;
+}
+
+.chooselab{
+    font-size: 18px;
+}
+
+.search input{
+    border: white solid 2px;
+    border-radius: 10px;
+    height: 38px;
+    color: wheat;
+} 
+
+.search button{
+    border: black solid 3px;
+    border-radius: 10px;
+    height: 36px;
+    color: rgb(255, 0, 0);
+    background-color: yellowgreen;
+    width: 60px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>A Virtual Tour to Your LAB</h1>
+            <div class="dropdown">
+                <label for="cars" class="chooselab">Choose lab:</label>
+                <select id="cars" name="cars" class="labnames">
+                    <option value="volvo">Microbiology</option>
+                    <option value="saab">Genetics Lab</option>
+                    <option value="mercedes">Biochemistry</option>
+                    <option value="audi">Biopysics</option>
+                </select>
+            </div>
+            <div class="search"><input placeholder="Search..." id="search-input"> <button type="button" onclick="filterCards()">Search</button></div>
+
+        </div>
+        <p><u>Microbiology lab is a specialized facility dedicated to the study of microorganisms</u>, including bacteria, viruses, fungi, and protozoa. These labs play a crucial role in advancing our understanding of microbial life and its impact on health, environment, and industry.</p>
+        <p>Microbiology labs are vital for exploring the microscopic world, addressing health challenges, and driving technological advancements. Their work has a profound impact on various aspects of life, making them a cornerstone of modern science and industry.</p>
+        <h2>Lab Equipments</h2>
+        <div class="cardcontainer">
+            <div class="card">
+                <img src="https://rescholarequipments.com/wp-content/uploads/2022/05/exhaust-system-for-laminar-flow.jpg" alt="laf">
+                <p class="card-title"> Laminar Air Flow</p>
+                <p class="card-info"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil porro adipisci, velit voluptatem officiis vel sunt non ad autem ea in fuga beatae, dolor, saepe sint asperiores ut facere! Inventore?
+                Officia assumenda error corporis numquam, quo eius consequuntur tempora doloremque maxime. Modi, molestiae maiores amet quisquam minus, ipsum velit numquam perspiciatis consectetur veritatis itaque laboriosam culpa, atque dolore est tempora?
+                Ab quis aspernatur eum tempore velit quaerat nemo. Sapiente distinctio tempore libero in, neque quae veniam, laboriosam ut mollitia dolorum quos facere reiciendis, totam at quo adipisci ullam ab optio?
+                Minima quam fugiat ab tempore, autem dolorem cum esse hic ipsam ex. Voluptatum quos, dolorem, at beatae itaque a tempore est tenetur saepe expedita aspernatur ad in minima consequuntur? Odit!
+                Itaque aliquid delectus quam enim inventore obcaecati illum at, alias consequuntur fuga laboriosam in, suscipit veritatis dolore sit. Tenetur quam provident hic ipsa consequuntur omnis, est dignissimos deleniti sequi quis!</p>
+            </div>
+            <div class="card">
+                <img src="https://th.bing.com/th/id/OIP.3fN0iyM0PF0a1i4Y6Di0WQHaHa?rs=1&pid=ImgDetMain" alt="BOD incubator">
+                <p class="card-title">BOD incubator</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque magni dicta veritatis tenetur laboriosam tempora deserunt repudiandae non aliquam incidunt minus natus dolorum saepe adipisci esse recusandae! Odit sunt omnis laboriosam officia!</p>
+            </div>
+            <div class="card">
+                <img src="https://5.imimg.com/data5/ECOM/Default/2022/8/OD/FE/RD/693643/heatingmantle-08f95953-b446-4ddc-b410-e34ce549cb86-1000x1000.jpg" alt="Heating Mantle">
+                <p class="card-title">Heating Mantle</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque magni dicta veritatis tenetur laboriosam tempora des" alt="BOD incubator">
+                orem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque magni dicta veritatis tenetur laboriosam tempora des</p>
+            </div>
+            <div class="card">
+                <img src="https://5.imimg.com/data5/SELLER/Default/2020/9/NV/YD/DB/34451153/portable-ss-autoclave-500x500.jpg" alt="Autoclave">
+                <p class="card-title">Autoclave</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque</p>
+            </div>
+            <div class="card">
+                <img src="https://www.japson.com/media/catalog/product/cache/1/thumbnail/1000x/17f82f742ffe127f42dca9de82fb58b1/r/o/rotary-orbital_shaker.jpg" alt="Rotary shaker">
+                <p class="card-title">Rotary shaker</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque</p>
+            </div>
+            <div class="card">
+                <img src="https://wirsam.com/wp-content/uploads/2020/11/VelpREC.jpg" alt="Heating plate">
+                <p class="card-title">Heating plate</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque</p>
+            </div>
+            <div class="card">
+                <img src="https://img.directindustry.com/images_di/photo-g/28268-13934751.jpg" alt="Wather Bath">
+                <p class="card-title">Water Bath</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque</p> 
+            </div>
+            <div class="card">
+                <img src="https://5.imimg.com/data5/SELLER/Default/2022/9/BB/YQ/JM/1639525/hot-air-ovens-1000x1000.jpg" alt="Hot air oven">
+                <p class="card-title">Hot air oven</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque</p>
+            </div>
+            <div class="card">
+                <img src="https://thumbs.dreamstime.com/z/microscope-parts-structure-anatomy-vector-d-realistic-black-laboratory-isolated-white-chemistry-biology-tool-science-lab-226109636.jpg" alt="Microscope">
+                <p class="card-title">Microscope</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque magni dicta veritatis tenetur laboriosam tempora des</p>
+            </div>
+            <div class="card">
+                <img src="https://th.bing.com/th/id/OIP.rdG2XRVdsEnqa8T7NplmdAHaHa?rs=1&pid=ImgDetMain" alt="Petri dish">
+                <p class="card-title">Petri dish</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque magni dicta veritatis tenetur laboriosam tempora des</p>
+            </div>
+            <div class="card">
+                <img src="https://th.bing.com/th/id/OIP.Np3eP8SJN9FeibiBqkspIgHaJQ?rs=1&pid=ImgDetMain" alt="Bunsen Burner">
+                <p class="card-title">Bunsen Burner</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque magni dicta veritatis tenetur laboriosam tempora des</p>
+            </div>
+            <div class="card">
+                <img src="https://m.media-amazon.com/images/I/61DiY2wRayL._SL1500_.jpg" alt="Spectrophotometer">
+                <p class="card-title">Spectrophotometer</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque magni dicta veritatis tenetur laboriosam tempora des</p>
+            </div>
+            <div class="card">
+                <img src="https://d2qc09rl1gfuof.cloudfront.net/product/SYZLSB-20LDS00001/pure-water-distiller-m100-2.jpg" alt="Water distiller">
+                <p class="card-title">Water distiller</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque magni dicta veritatis tenetur laboriosam tempora des</p>
+            </div>
+            <div class="card">
+                <img src="https://th.bing.com/th/id/OIP.BnmEfsvrh2ztsAdplZhteAHaHa?rs=1&pid=ImgDetMain" alt="Ph meter">
+                <p class="card-title">Ph meter</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque magni dicta veritatis tenetur laboriosam tempora des</p>
+            </div>
+            <div class="card">
+                <img src="https://th.bing.com/th/id/OIP.YIomKH4rxOmEwcV0IRtD3wHaHa?rs=1&pid=ImgDetMain" alt="Deep freezer">
+                <p class="card-title">Deep freezer</p>
+                <p class="card-info">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga labore consectetur distinctio, possimus velit commodi cumque sapiente quam neque, autem magni unde molestias fugiat, iusto ex ratione excepturi molestiae veniam.
+                Dolor natus exercitationem dolore molestias unde neque minima minus ducimus ipsum, amet soluta quia, possimus animi asperiores ut fugiat incidunt impedit adipisci reprehenderit sint a laboriosam quam aperiam? Totam, vitae.
+                Iusto quasi id vitae, maxime laudantium similique. Aperiam iusto, tenetur quidem nobis commodi placeat doloribus molestias ducimus quae ab et maxime quia odit laborum, iste facilis, totam voluptas eveniet veritatis.
+                Laboriosam totam corporis soluta illo dolorum voluptas, veritatis consectetur animi itaque eos maxime dolorem tempora cum qui porro nobis optio quam dolore in facere cumque! Nisi magni libero nesciunt eius?
+                Maxime ipsum voluptatem fugiat, iusto soluta cumque magni dicta veritatis tenetur laboriosam tempora des</p>
+            </div>
+            <div class="card">
+                <img src="https://m.media-amazon.com/images/I/61U9+lcqA-L._SL1266_.jpg" alt="weighing balance">
+                <p class="card-title">Weighing Balance</p>
+                <p class="card-info">An analytical balance is a type of balance that is commonly used for the measurement of mass in the sub-milligram range.
+
+                    Working Principle
+                    These types of balances are made with a measuring pan enclosed in a transparent covering that prevents small particles or air currents from getting collected on the pan.
+                    An electric analytical balance uses the force necessary to counteract the mass rather than measuring the mass itself.
+                    An electromagnet is used to create a force required to achieve a balance with the mass of the substance, and the resulting force is displayed.
+                    Uses
+                    As they are highly precise and based on advanced technology, analytical balances are explicitly used in laboratories for the effective completion of tasks like weighing test materials and sampling amounts, formulation, density determination, purity analysis, quality control testing, and material and conformance testing</p>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        function filterCards() {
+            // Get the search input value
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            
+            // Get all card elements
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                // Get the title of the card
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                
+                // Check if the title includes the search input
+                if (title.includes(searchInput)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Optional: Automatically filter on input change
+        document.getElementById('search-input').addEventListener('input', filterCards);
+    </script>
+
+</body>
+</html>

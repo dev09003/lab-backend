@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Page</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+                :root {
+            --font: sans-serif;
+            --color: white;
+            --cardcolor: #4a5568;
+            --bgc: gray;
+            --table-bg: #1a202c;
+            --table-header-bg: #2d483a;
+            --border-color:  black;
+            --delete-color: #e53e3e;
+        }
+
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bgc);
+            color: var(--color);
+            font-family: var(--font);
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--color);
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: var(--table-bg);
+        }
+
+        table, th, td {
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            color: var(--color);
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--cardcolor);
+        }
+
+        tr:hover {
+            background-color: var(--border-color);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: var(--table-header-bg);
+            color: var(--color);
+            text-align: center;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--cardcolor);
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .delete-btn {
+            background-color: var(--delete-color);
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-btn:hover {
+            background-color: #c53030;
+        }
+
+        
+        
+        :root {
+            --highlight-yellow: #ffeb3b; /* Highlight for items expiring in 6 days or less */
+            --highlight-red: #ff4c4c;    /* Highlight for items expiring in the future */
+        }
+    
+        .highlight-yellow {
+            background-color: var(--highlight-red) !important;
+        }
+    
+        .highlight-red {
+            background-color: var(--highlight-yellow) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Inventory List</h1>
+
+    <table>
+        <tr>
+            <th>Item Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Expiry Date</th>
+            <th>Shelf No.</th>
+            <th>Actions</th>
+        </tr>
+        
+        <!-- More items can be added here -->
+    </table>
+
+    <div class="container">
+        <button class="btn">Add New Item</button>
+    </div>
+    <!-- Link to script.js -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const addButton = document.querySelector('.btn');
+    const table = document.querySelector('table');
+
+    function loadInventory() {
+        const storedInventory = localStorage.getItem('inventory');
+        console.log('Loading inventory:', storedInventory);
+        if (storedInventory) {
+            const inventory = JSON.parse(storedInventory);
+            inventory.forEach(item => addRowToTable(item));
+        }
+        highlightExpiringItems();
+    }
+
+    function saveInventory() {
+        const rows = document.querySelectorAll('table tr');
+        const inventory = Array.from(rows).slice(1).map(row => {
+            const cells = row.cells;
+            return {
+                name: cells[0].innerHTML,
+                description: cells[1].innerHTML,
+                quantity: cells[2].innerHTML,
+                price: cells[3].innerHTML,
+                expiry: cells[4].innerHTML,
+                shelf: cells[5].innerHTML,
+            };
+        });
+        console.log('Saving inventory:', inventory);
+        localStorage.setItem('inventory', JSON.stringify(inventory));
+    }
+
+    function addRowToTable(item) {
+        const newRow = table.insertRow();
+        const cells = ['name', 'description', 'quantity', 'price', 'expiry', 'shelf'];
+        cells.forEach((cell, index) => newRow.insertCell(index).innerHTML = item[cell]);
+        const actionsCell = newRow.insertCell(6);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerHTML = 'Decrease Quantity';
+        deleteButton.classList.add('delete-btn');
+        actionsCell.appendChild(deleteButton);
+
+        decreaseQuantity(deleteButton);
+    }
+
+    function decreaseQuantity(button) {
+        button.addEventListener('click', function() {
+            const row = button.closest('tr');
+            const quantityCell = row.cells[2];
+            let quantity = parseInt(quantityCell.innerHTML);
+            console.log('Current quantity:', quantity);
+
+            if (quantity > 1) {
+                quantity--;
+                quantityCell.innerHTML = quantity;
+            } else {
+                quantityCell.innerHTML = 0;
+                button.disabled = true;
+                row.style.opacity = "0.5";
+            }
+
+            saveInventory();
+        });
+    }
+
+    function highlightExpiringItems() {
+        const rows = document.querySelectorAll('table tr');
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+
+        rows.forEach(row => {
+            const expiryDateCell = row.cells[4];
+            if (expiryDateCell && expiryDateCell.innerHTML !== 'N/A') {
+                const expiryDate = new Date(expiryDateCell.innerHTML);
+                expiryDate.setHours(0, 0, 0, 0);
+
+                const dayDifference = Math.ceil((expiryDate - currentDate) / (1000 * 60 * 60 * 24));
+                console.log('Days until expiry:', dayDifference);
+
+                row.classList.remove('highlight-yellow', 'highlight-red');
+                if (dayDifference < 0) {
+                    row.classList.add('highlight-red');
+                } else if (dayDifference <= 6) {
+                    row.classList.add('highlight-yellow');
+                }
+            }
+        });
+    }
+
+    loadInventory();
+
+    addButton.addEventListener('click', function() {
+        const newItemName = prompt("Enter item name:");
+        const newItemDesc = prompt("Enter item description:");
+        const newItemQty = prompt("Enter item quantity:");
+        const newItemPrice = prompt("Enter item price (without ₹):");
+        const newItemExpiry = prompt("Enter expiry date (YYYY-MM-DD) or N/A:");
+        const newItemShelfNo = prompt("Enter shelf number:");
+
+        if (newItemName && newItemDesc && newItemQty && newItemPrice && newItemShelfNo) {
+            const quantity = parseInt(newItemQty);
+            const price = parseFloat(newItemPrice);
+
+            if (isNaN(quantity) || quantity <= 0) {
+                alert("Quantity must be a positive number.");
+                return;
+            }
+
+            if (isNaN(price) || price < 0) {
+                alert("Price must be a non-negative number.");
+                return;
+            }
+
+            const newItem = {
+                name: newItemName,
+                description: newItemDesc,
+                quantity,
+                price: `₹${price.toFixed(2)}`, // Changed from $ to ₹
+                expiry: newItemExpiry,
+                shelf: newItemShelfNo
+            };
+
+            addRowToTable(newItem);
+            saveInventory();
+            highlightExpiringItems();
+        } else {
+            alert("Please fill in all the fields.");
+        }
+    });
+});
+
+    </script>
+
+</body>
+</html>
+
+
+
+

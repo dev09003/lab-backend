@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Inventory System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#101921] text-white font-sans">
+    <!-- Welcome Screen
+        <div id="welcomeScreen" class="welcome-screen">
+        <h1 class="welcome-text">Welcome to WebLab</h1>
+        <p class="welcome-text2">LABS Made EASY</p>
+    </div>
+
+    <!-- Actual Homepage -->
+    <!-- <div id="homepage" class="homepage" style="display: none;">
+        <h1>WebLab Homepage</h1> 
+    </div>  -->
+    <nav class="bg-gray-800 p-4 fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-white">Web Lab</a>
+            <ul class="flex space-x-4">
+                <li><a href="#" class="text-white hover:text-gray-300">Home</a></li>
+                <li><a href="/labtour" class="text-white hover:text-gray-300">Lab Tour</a></li>
+                <li><a href="/labnotes" class="text-white hover:text-gray-300">Lab Notes</a></li>
+                <li><a href="/inventory" class="text-white hover:text-gray-300">Inventory</a></li>
+                <li><a href="http://localhost:8001/profile" class="text-white hover:text-gray-300">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+
+    <main class="container mx-auto pt-20 p-4">
+        <section id="home" class="mb-12">
+            <h1 class="text-3xl font-bold mb-6"><span class ="wel">W</span>elcome to the <span class="inv">WebLab Inventory System</span></h1>
+            <div class="bg-gray-700 rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">Recent Activities</h2>
+                <ul class="space-y-2">
+                    <li class="flex items-center">
+                        <span class="bg-red-500 text-black-900 text-xs font-medium px-2 py-1 rounded-full mr-2">Expiring Soon</span>
+                        <span>Hydrochloric Acid expires in 5 days</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="bg-green-500 text-white-900 text-xs font-medium px-2 py-1 rounded-full mr-2">New Item</span>
+                        <span>Microscope added to inventory</span>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="bg-green-500 text-white-900 text-xs font-medium px-2 py-1 rounded-full mr-2">New Item</span>
+                        <span>BOD incubator added to inventory</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="lab-tour" class="mb-12">
+            <h2 class="text-2xl font-bold mb-4"><a href="./lab tour/labtour.html">Lab Tour</a></h2>
+            <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> -->
+                <style>
+                    /* Container for carousel items */
+                    .carousel-wrapper {
+                        display: flex;
+                        overflow-x: hidden;
+                        scroll-snap-type: x mandatory;
+                        padding: 0 5rem; /* Adjust padding as needed */
+                    }
+                    /* Individual carousel items */
+                    .carousel-item {
+                        flex: 0 0 33.333%; /* Show 3 cards at a time */
+                        scroll-snap-align: start;
+                        box-sizing: border-box;
+                        padding: 6px;
+                        margin: 10px;
+                    }
+                    /* Navigation buttons */
+                    .carousel-button {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background: rgba(0, 0, 0, 0.5);
+                        color: white;
+                        border: none;
+                        padding: 0.5rem;
+                        cursor: pointer;
+                        z-index: 10;
+                    }
+                    .carousel-button.left {
+                        left: 1rem;
+                    }
+                    .carousel-button.right {
+                        right: 1rem;
+                    }
+                </style>
+            </head>
+            <body class="bg-gray-800 flex justify-center items-center min-h-screen">
+                <div class="relative w-full max-w-full">
+                    <div class="carousel-wrapper">
+                        <div class="carousel-item bg-gray-700 rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074" alt="Chemical storage" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Chemical Storage</h3>
+                                <p class="text-sm text-gray-300">Secure storage facilities for various chemicals and compounds.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item bg-gray-700 rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1581093806997-124204d9fa9d" alt="Research area" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Research Area</h3>
+                                <p class="text-sm text-gray-300">Dedicated space for researchers to conduct experiments and analyze data.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item bg-gray-700 rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1581093806997-124204d9fa9d" alt="Research area" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Research Area</h3>
+                                <p class="text-sm text-gray-300">Dedicated space for researchers to conduct experiments and analyze data.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item bg-gray-700 rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1581093806997-124204d9fa9d" alt="Research area" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Research Area</h3>
+                                <p class="text-sm text-gray-300">Dedicated space for researchers to conduct experiments and analyze data.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item bg-gray-700 rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69" alt="Lab equipment" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-2">Main Laboratory</h3>
+                                <p class="text-sm text-gray-300">Our state-of-the-art main laboratory equipped with advanced instruments.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Navigation Arrows -->
+                    <button class="carousel-button left">&#9664;</button>
+                    <button class="carousel-button right">&#9654;</button>
+                </div>
+            
+                <script>
+                    const wrapper = document.querySelector('.carousel-wrapper');
+                    const leftButton = document.querySelector('.carousel-button.left');
+                    const rightButton = document.querySelector('.carousel-button.right');
+                    const cardWidth = document.querySelector('.carousel-item').offsetWidth;
+                    const visibleCards = 3;
+                    let scrollAmount = 0;
+            
+                    rightButton.addEventListener('click', () => {
+                        scrollAmount += cardWidth * visibleCards;
+                        wrapper.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+                    });
+            
+                    leftButton.addEventListener('click', () => {
+                        scrollAmount -= cardWidth * visibleCards;
+                        scrollAmount = Math.max(scrollAmount, 0);
+                        wrapper.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+                    });
+                </script>
+            <!-- </div> -->
+        </section>
+
+        <section id="inventory" class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">Inventory</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Chemicals</h3>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between items-center">
+                            <span>Hydrochloric Acid</span>
+                            <span class="bg-blue-500 text-white-900 text-xs font-medium px-2 py-1 rounded-full">Storage A</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span>Sodium Hydroxide</span>
+                            <span class="bg-blue-500 text-white-900 text-xs font-medium px-2 py-1 rounded-full">Storage B</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span>Ethanol</span>
+                            <span class="bg-blue-500 text-white-900 text-xs font-medium px-2 py-1 rounded-full">Storage C</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Machines</h3>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between items-center">
+                            <span>Centrifuge</span>
+                            <span class="bg-purple-500 text-white-900 text-xs font-medium px-2 py-1 rounded-full">Room 101</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span>Microscope</span>
+                            <span class="bg-purple-500 text-white-900 text-xs font-medium px-2 py-1 rounded-full">Room 102</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span>Spectrophotometer</span>
+                            <span class="bg-purple-500 text-white-900 text-xs font-medium px-2 py-1 rounded-full">Room 103</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-center p-4 mt-12">
+        <p>&copy; 2024 Lab Inventory System. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

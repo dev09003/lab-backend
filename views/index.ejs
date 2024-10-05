@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body data-rsssl=1>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#reader {
+    width: 600px;
+}
+#result {
+    text-align: center;
+    font-size: 1.5rem;
+}
+</style>
+
+<main>
+    <div id="reader"></div>
+    <div id="result"></div>
+</main>
+
+<!-- index.ejs -->
+<script>
+    const scanner = new Html5QrcodeScanner('reader', {
+        qrbox: {
+            width: 250,
+            height: 250,
+        },
+        fps: 20,
+    });
+
+    scanner.render(success, error);
+
+    function success(result) {
+    document.getElementById('result').innerHTML = `
+        <h2>Success!</h2>
+        <p>QR code scanned: ${result}</p>
+    `;
+
+    // Fetch the item details from the server using the scanned QR code
+    fetch(`/getItemDetails?qrData=${result}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Assuming data contains item details like name, description, quantity, price, etc.
+            const item = data.item;
+
+            // Save the scanned item to local storage
+            localStorage.setItem('scannedItem', JSON.stringify(item));
+
+            // Add the item to the inventory on the server
+            fetch('/addItem', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(item),
+            })
+            .then(response => response.json())
+            .then(addItemResponse => {
+                if (addItemResponse.success) {
+                    alert('Item added to inventory successfully!');
+                    window.location.href = '/inventory';  // Redirect to inventory page after adding
+                } else {
+                    alert('Failed to add item.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        } else {
+            alert('Failed to fetch item details.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+    // Stop the scanner after successful scan
+    scanner.clear();
+    document.getElementById('reader').remove();
+}
+
+
+
+    function error(err) {
+        console.error(err);
+    }
+</script>
+
+</body>
+</html>
+

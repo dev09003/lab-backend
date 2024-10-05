@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+    }
+    .profile-container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .profile-details {
+      margin-top: 1rem;
+    }
+    .profile-details p {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+    /* Style for file input */
+    input[type="file"] {
+      display: none; /* Hide the default file input */
+    }
+    label {
+      display: inline-block;
+      background-color: #007bff; /* Bootstrap primary color */
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      margin-bottom: 1rem;
+      width: 100%; /* Full width to match the button */
+      box-sizing: border-box; /* Include padding in width */
+      font-size: 1rem; /* Font size */
+      text-align: center; /* Center text */
+    }
+    label:hover {
+      background-color: #0056b3; /* Darken on hover */
+    }
+    /* Style for the submit button */
+    button {
+      background-color: #28a745; /* Bootstrap success color */
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #218838; /* Darken on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <h1>Your Profile</h1>
+    <img src="<%= user.profilePhoto || '/uploads/default-photo.png' %>" alt="Profile Photo" />
+    <div class="profile-details">
+      <p><strong>Name:</strong> <%= user.name %></p>
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <p><strong>Joined:</strong> <%= user.createdAt.toDateString() %></p>
+    </div>
+    <form action="/user/upload-photo" method="post" enctype="multipart/form-data">
+      <label for="profilePhoto">Choose Profile Photo</label>
+      <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" />
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+</body>
+</html>
+
+
+
+
+
