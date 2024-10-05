@@ -35,6 +35,38 @@
             scrollbar-width: none;
             scroll-behavior: smooth
         }
+
+        .cards{
+            animation: autoShowAnimation both;
+            animation-timeline: view(70% 10%);
+        }
+        @keyframes autoShowAnimation{
+            from{
+                opacity: 0.1;
+                transform: translate(150px) scale(0.8);
+            }to{
+                opacity: 1;
+                transform: translate(0) scale(1);
+            }
+        }
+
+        #expiring-soon h2{
+            font-size: x-large;
+        }
+
+        #idcard1{
+            position: relative;
+            top: 1;
+            left: -45px;
+            width: 625px;
+        }
+
+        #idcard2{
+            position: relative;
+            top: 1px;
+            left: -40px;
+            width: 625px;
+        }
     </style>
 </head>
 <body class="bg-[#101921] text-white font-sans">
@@ -60,7 +92,7 @@
             <h1 class="text-3xl font-bold mb-6 p-6">Welcome to the <span class="inv">WebLab Inventory System</span></h1>
 
             <!-- Expiring Soon Section -->
-            <div class="bg-gray-700 rounded-lg p-6 h-53">
+            <div class="bg-gray-700 rounded-lg p-6 h-45">
                 <section id="expiring-soon" class="mb-12">
                     <h2 class="font-bold mb-4">Expiring Soon</h2>
                     <ul id="recent-activities" class="space-y-3" >
@@ -70,13 +102,13 @@
             </div>
 
             <!-- Low Stock Warning -->
-            <div id="low-stock-warning" class="low-stock-warning bg-gray-700 rounded-lg p-6 h-56">
+            <div id="low-stock-warning" class="low-stock-warning bg-gray-700 rounded-lg p-6 h-35">
                 <h2 class="text-2xl font-bold mb-4">Warning: The following items are running low on stock:</h2>
                 <ul id="low-stock-list"></ul>
             </div>
 
             <!-- Expired Items Section -->
-            <div id="expired-items" class="expireItem bg-gray-700 rounded-lg p-6 mt-8">
+            <div id="expired-items" class="expireItem bg-gray-700 rounded-lg p-6 mt-5">
                 <h2 class="text-2xl font-bold mb-4">Expired Items</h2>
                 <ul id="expired-items-list" class="space-y-2"></ul>
             </div>
@@ -90,7 +122,7 @@
         <!-- Lab Tour Section -->
         <section id="lab-tour" class="mb-12">
             <h2 class="text-2xl font-bold mb-4">
-                <a href="./lab tour/labtour.html" class="text-blue-600 hover:underline">Lab Tour</a>
+                <a href="./lab tour/labtour.html" class="text-2xl font-bold mb-4">Lab Tour</a>
             </h2>
             <div class="cards relative w-full max-w-full">
                 <div class="carousel-wrapper flex overflow-x-scroll snap-x snap-mandatory">
@@ -143,16 +175,30 @@
         
 
         <!-- Shelf Inventory Section -->
-        <section id="shelf-inventory" class="mb-12">
+        <section id="shelf-inventory" class="mb-0">
             <h2 class="text-2xl font-bold mb-4">Shelf Inventory</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="shelf-list">
+            <div class="cards grid grid-cols-2 md:grid-cols-2 gap-6" id="shelf-list">
                 <!-- Shelf items will be dynamically generated here -->
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
+                <div class="cards grid grid-cols-2 md:grid-cols-2 bg-gray-700 rounded-lg p-6 h-9.5  m-4 mb-4" id="idcard1">
+                <h3 class="text-lg font-semibold mb-4">Shelf A</h3>
+                <p class="text-sm text-gray-300">Pipettes</p>
+                <p class="text-sm text-gray-300">Beakers</p>
+                <p class="text-sm text-gray-300">Flasks</p>
+              </div>
+              <div class="cards bg-gray-700 rounded-lg p-6 h-9.5  m-4 mb-4" id="idcard2">
+                <h3 class="text-lg font-semibold mb-4">Shelf A</h3>
+                <p class="text-sm text-gray-300">Pipettes</p>
+                <p class="text-sm text-gray-300">Beakers</p>
+                <p class="text-sm text-gray-300">Flasks</p>
+              </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-center p-4 mt-12">
+    <footer class="bg-gray-800 text-center p-4 mt-0">
         <p>&copy; 2024 Lab Inventory System. All rights reserved.</p>
     </footer>
 
