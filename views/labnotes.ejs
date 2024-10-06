@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Notes</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="https://th.bing.com/th/id/OIP.U7wPiyKBPvHs0Zm0oADOYwHaE8?w=600&h=400&rs=1&pid=ImgDetMain">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden; /* Allow only vertical scrolling */
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Ensure the canvas stays behind other elements */
+    width: 100vw; /* Make the canvas cover the entire viewport width */
+    height: 100vh; /* Make the canvas cover the entire viewport height */
+    pointer-events: none; /* Prevent any interaction with the canvas */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: relative;
+    z-index: 1; /* Ensure content is above the canvas */
+}
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .important-checkbox {
+            margin-top: 10px;
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .notes-list {
+            margin-top: 30px;
+        }
+        .note {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+        .note.important {
+            border-left: 5px solid #dc3545; /* Red for important notes */
+            animation: pulse 1.5s infinite;
+        }
+        .note h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .note p {
+            margin: 10px 0 0;
+        }
+        /* Pulse animation for important notes */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 3D Canvas (Three.js will render here) -->
+<canvas id="threejsCanvas"></canvas>
+
+<div class="container">
+    <h1>Lab Notes</h1>
+
+    <!-- Form to add a new lab note -->
+    <form id="noteForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" placeholder="Enter note title" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" rows="5" placeholder="Enter note description" required></textarea>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" required>
+
+        <!-- Checkbox for marking a note as important -->
+        <div class="important-checkbox">
+            <input type="checkbox" id="important" />
+            <label for="important">Mark as Important</label>
+        </div>
+
+        <button type="submit" class="btn">Add Note</button>
+    </form>
+
+    <!-- List of saved notes -->
+    <div class="notes-list" id="notesList">
+        <!-- Notes will be dynamically inserted here -->
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const noteForm = document.getElementById('noteForm');
+        const notesList = document.getElementById('notesList');
+
+        // Load saved notes from localStorage
+        function loadNotes() {
+            const savedNotes = JSON.parse(localStorage.getItem('labNotes')) || [];
+            savedNotes.forEach(note => displayNote(note));
+        }
+
+        // Save note to localStorage
+        function saveNote(note) {
+            const notes = JSON.parse(localStorage.getItem('labNotes')) || [];
+            notes.push(note);
+            localStorage.setItem('labNotes', JSON.stringify(notes));
+        }
+
+        // Display a note on the page
+        function displayNote(note) {
+            const noteDiv = document.createElement('div');
+            noteDiv.classList.add('note');
+            if (note.important) {
+                noteDiv.classList.add('important');
+            }
+            noteDiv.innerHTML = `
+                <h2>${note.title}</h2>
+                <p>${note.description}</p>
+                <small>Date: ${note.date}</small>
+            `;
+            notesList.appendChild(noteDiv);
+        }
+
+        // Handle form submission
+        noteForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const note = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                date: document.getElementById('date').value,
+                important: document.getElementById('important').checked,
+            };
+
+            // Save and display the note
+            saveNote(note);
+            displayNote(note);
+
+            // Clear the form
+            noteForm.reset();
+        });
+
+        // Load notes when the page loads
+        loadNotes();
+    });
+
+    // Three.js setup
+    const canvas = document.getElementById('threejsCanvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Create a rotating cube
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshBasicMaterial({ color: 0x007bff });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    camera.position.z = 5;
+
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Rotate cube
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Resize canvas on window resize
+    window.addEventListener('resize', () => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+    });
+</script>
+
+</body>
+</html>
