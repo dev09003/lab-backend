@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lab Inventory System</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://th.bing.com/th/id/OIP.U7wPiyKBPvHs0Zm0oADOYwHaE8?w=600&h=400&rs=1&pid=ImgDetMain">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .low-stock-warning {
@@ -76,11 +76,11 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="#" class="text-xl font-bold text-white">Web Lab</a>
             <ul class="flex space-x-4">
-                <li><a href="#" class="text-white hover:text-gray-300">Home</a></li>
-                <li><a href="/labtour" class="text-white hover:text-gray-300">Lab Tour</a></li>
-                <li><a href="/labnotes" class="text-white hover:text-gray-300">Lab Notes</a></li>
-                <li><a href="/inventory" class="text-white hover:text-gray-300">Inventory</a></li>
-                <li><a href="http://localhost:8001/profile" class="text-white hover:text-gray-300">Profile</a></li>
+                <li><a href="#" class="text-white hover:text-gray-400">Home</a></li>
+                <li><a href="/labtour" class="text-white hover:text-gray-400">Lab Tour</a></li>
+                <li><a href="/labnotes" class="text-white hover:text-gray-400">Lab Notes</a></li>
+                <li><a href="/inventory" class="text-white hover:text-gray-400">Inventory</a></li>
+                <li><a href="http://localhost:8001/profile" class="text-white hover:text-gray-400">Profile</a></li>
             </ul>
         </div>
     </nav>
@@ -101,16 +101,16 @@
                 </section>
             </div>
 
-            <!-- Low Stock Warning -->
-            <div id="low-stock-warning" class="low-stock-warning bg-gray-700 rounded-lg p-6 h-35">
-                <h2 class="text-2xl font-bold mb-4">Warning: The following items are running low on stock:</h2>
-                <ul id="low-stock-list"></ul>
-            </div>
-
             <!-- Expired Items Section -->
             <div id="expired-items" class="expireItem bg-gray-700 rounded-lg p-6 mt-5">
                 <h2 class="text-2xl font-bold mb-4">Expired Items</h2>
                 <ul id="expired-items-list" class="space-y-2"></ul>
+            </div>
+
+            <!-- Low Stock Warning -->
+            <div id="low-stock-warning" class="low-stock-warning bg-gray-700 rounded-lg p-6 h-35">
+                <h2 class="text-2xl font-bold mb-4">Warning: The following items are running low on stock:</h2>
+                <ul id="low-stock-list"></ul>
             </div>
 
             <!-- Stock Alert -->
@@ -122,7 +122,7 @@
         <!-- Lab Tour Section -->
         <section id="lab-tour" class="mb-12">
             <h2 class="text-2xl font-bold mb-4">
-                <a href="./lab tour/labtour.html" class="text-2xl font-bold mb-4">Lab Tour</a>
+                <a href="/labtour" class="text-2xl font-bold mb-4">Lab Tour</a>
             </h2>
             <div class="cards relative w-full max-w-full">
                 <div class="carousel-wrapper flex overflow-x-scroll snap-x snap-mandatory">
@@ -211,22 +211,39 @@
 
     // Load low stock items
     function loadLowStockItems() {
-        const lowStockItems = JSON.parse(localStorage.getItem('lowStockItems')) || [];
-        lowStockList.innerHTML = ''; // Clear the list
+    const lowStockItems = JSON.parse(localStorage.getItem('lowStockItems')) || [];
+    lowStockList.innerHTML = ''; // Clear the list
 
-        if (lowStockItems.length > 0) {
-            lowStockItems.forEach(item => {
-                const listItem = document.createElement('li');
-                listItem.textContent = item;
-                lowStockList.appendChild(listItem);
-            });
-            lowStockWarning.style.display = 'block';
-        } else {
-            lowStockWarning.style.display = 'none';
-        }
+    if (lowStockItems.length > 0) {
+        lowStockItems.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('flex', 'items-center', 'justify-between', 'gap-0'); // Flexbox for alignment
+
+            // First span - badge for "Stock Low"
+            const badge = document.createElement('span');
+            badge.classList.add('bg-orange-500', 'text-black-900', 'text-xs', 'font-medium', 'px-2', 'py-1', 'rounded-full', 'ml-', 'mr-2');
+            badge.textContent = 'Stock Low';
+
+            // Second span - text for the low stock item
+            const text = document.createElement('span');
+            text.textContent = `${item}`; // Display the item
+            text.classList.add('mr-auto'); // Push text to the left with margin-right auto
+
+            // Append both spans to the list item
+            listItem.appendChild(badge);
+            listItem.appendChild(text);
+
+            // Append the list item to the lowStockList container
+            lowStockList.appendChild(listItem);
+        });
+        lowStockWarning.style.display = 'block'; // Show warning when items are present
+    } else {
+        lowStockWarning.style.display = 'none'; // Hide warning when no low stock items
     }
+}
 
-    loadLowStockItems(); // Load low stock items on page load
+loadLowStockItems(); // Load low stock items on page load
+
 
     // Load expiring soon items
     loadExpiringSoon();
@@ -263,22 +280,39 @@
     // Load expired items
     loadExpiredItems();
 
-    function loadExpiredItems() {
-        const expiredItems = JSON.parse(localStorage.getItem('expiredItems')) || [];
-        expiredItemsList.innerHTML = ''; // Clear the list
+function loadExpiredItems() {
+    const expiredItems = JSON.parse(localStorage.getItem('expiredItems')) || [];
+    expiredItemsList.innerHTML = ''; // Clear the list
 
-        if (expiredItems.length > 0) {
-            expiredItems.forEach(item => {
-                const listItem = document.createElement('li');
-                listItem.textContent = item;
-                expiredItemsList.appendChild(listItem);
-            });
-        } else {
-            const noItems = document.createElement('li');
-            noItems.textContent = "No expired items.";
-            expiredItemsList.appendChild(noItems);
-        }
+    expiredItems.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('flex', 'items-center', 'justify-between', 'gap-0'); // Flex styling for list items
+
+        // First span - badge for "Expired Items"
+        const badge2 = document.createElement('span');
+        badge2.classList.add('bg-red-500', 'text-black-900', 'text-xs', 'font-medium', 'px-2', 'py-1', 'rounded-full', 'ml-', 'mr-2');
+        badge2.textContent = 'Expired Items';
+
+        // Second span - text for each expired item
+        const text = document.createElement('span');
+        text.textContent = `${item}`; // Display the expired item
+        text.classList.add('mr-auto'); // Apply auto margin-right to push text to the left
+
+        // Append the spans to the list item
+        listItem.appendChild(badge2);
+        listItem.appendChild(text);
+        
+        // Append the list item to the expiredItemsList container
+        expiredItemsList.appendChild(listItem);
+    });
+
+    if (expiredItems.length === 0) {
+        const noItems = document.createElement('li');
+        noItems.textContent = "No expired items.";
+        expiredItemsList.appendChild(noItems);
     }
+}
+
 
     // Load shelf inventory
     loadShelfInventory();
