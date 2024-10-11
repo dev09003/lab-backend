@@ -308,7 +308,7 @@ function loadExpiredItems() {
 
     if (expiredItems.length === 0) {
         const noItems = document.createElement('li');
-        noItems.textContent = "No expired items.";
+        noItems.textContent = "No expired items in the shelf.";
         expiredItemsList.appendChild(noItems);
     }
 }
@@ -366,6 +366,8 @@ function loadExpiredItems() {
         }
     }
 });
+
+
 
 const carouselWrapper = document.querySelector('.carousel-wrapper');
 
