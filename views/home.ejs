@@ -7,24 +7,26 @@
     <link rel="icon" href="https://th.bing.com/th/id/OIP.U7wPiyKBPvHs0Zm0oADOYwHaE8?w=600&h=400&rs=1&pid=ImgDetMain">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        
+
         .low-stock-warning {
             color: #fff;
             padding: 10px;
             margin-top: 20px;
-            text-align: center;
+            /* text-align: center; */
             display: none;
             margin: 10px auto;
-            border: 1px solid black;
+            /* border: 1px solid black; */
             position: relative;
             top: 5px;
             left: 0px;
         }
-        .low-stock-warning h2{
+        /* .low-stock-warning h2{
             position: relative;
             top: 5px;
             left: -275px;
 
-        }
+        } */
         
         .carousel-item{
             margin: 15px;
@@ -67,6 +69,9 @@
             left: -40px;
             width: 625px;
         }
+
+        
+
     </style>
 </head>
 <body class="bg-[#101921] text-white font-sans">
@@ -92,32 +97,36 @@
             <h1 class="text-3xl font-bold mb-6 p-6">Welcome to the <span class="inv">WebLab Inventory System</span></h1>
 
             <!-- Expiring Soon Section -->
-            <div class="bg-gray-700 rounded-lg p-6 h-45">
-                <section id="expiring-soon" class="mb-12">
+            <div class="bg-gray-700 rounded-lg p-6 h-45  w-full">
+                <section id="expiring-soon" class="mb-8">
                     <h2 class="font-bold mb-4">Expiring Soon</h2>
                     <ul id="recent-activities" class="space-y-3" >
                         <!-- Items will be populated here from localStorage -->
                     </ul>
                 </section>
+                <div id="expired-items" class="expireItem ">
+                    <h2 class="text-2xl font-bold mb-4">Expired Items</h2>
+                    <ul id="expired-items-list" class="space-y-2"></ul>
+                </div>
+                <div id="low-stock-warning" class="low-stock-warning ">
+                    <h2 class="text-2xl font-bold mb-4">Low on stock:</h2>
+                    <ul id="low-stock-list"></ul>
+                </div>
+                <div id="stock-alert" style="display:none; color:red; font-weight:bold;">
+                    Stock is running low for some items!
+                </div>
             </div>
 
             <!-- Expired Items Section -->
-            <div id="expired-items" class="expireItem bg-gray-700 rounded-lg p-6 mt-5">
-                <h2 class="text-2xl font-bold mb-4">Expired Items</h2>
-                <ul id="expired-items-list" class="space-y-2"></ul>
-            </div>
+            
 
             <!-- Low Stock Warning -->
-            <div id="low-stock-warning" class="low-stock-warning bg-gray-700 rounded-lg p-6 h-35">
-                <h2 class="text-2xl font-bold mb-4">Warning: The following items are running low on stock:</h2>
-                <ul id="low-stock-list"></ul>
-            </div>
+           
 
             <!-- Stock Alert -->
-            <div id="stock-alert" style="display:none; color:red; font-weight:bold;">
-                Stock is running low for some items!
-            </div>
+            
         </section>
+            
 
         <!-- Lab Tour Section -->
         <section id="lab-tour" class="mb-12">
@@ -180,26 +189,46 @@
             <div class="cards grid grid-cols-2 md:grid-cols-2 gap-6" id="shelf-list">
                 <!-- Shelf items will be dynamically generated here -->
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
-                <div class="cards grid grid-cols-2 md:grid-cols-2 bg-gray-700 rounded-lg p-6 h-9.5  m-4 mb-4" id="idcard1">
-                <h3 class="text-lg font-semibold mb-4">Shelf A</h3>
-                <p class="text-sm text-gray-300">Pipettes</p>
-                <p class="text-sm text-gray-300">Beakers</p>
-                <p class="text-sm text-gray-300">Flasks</p>
-              </div>
-              <div class="cards bg-gray-700 rounded-lg p-6 h-9.5  m-4 mb-4" id="idcard2">
-                <h3 class="text-lg font-semibold mb-4">Shelf A</h3>
-                <p class="text-sm text-gray-300">Pipettes</p>
-                <p class="text-sm text-gray-300">Beakers</p>
-                <p class="text-sm text-gray-300">Flasks</p>
-              </div>
-            </div>
+            <br>
+            <br>
+            <br>
         </section>
     </main>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-center p-4 mt-0">
-        <p>&copy; 2024 Lab Inventory System. All rights reserved.</p>
+        <p>&copy; 2024 Lab Inventory System. All rights reserved.</p><br>
+        <p>Contact Developers:</p>
+    <section class="flex justify-center space-x-[200px]">
+        <ul class='flex justify-center space-x-4 mt-2'>
+            <li>
+                <p>Dev:</p>
+            </li>
+            <li class="w-6">
+                <a href="https://www.linkedin.com/in/devjha09"><img src="https://pngimg.com/uploads/linkedIn/linkedIn_PNG7.png"></a>
+            </li>
+            <li class="w-6">
+                <a href="https://www.github.com/dev09003"><img src="https://cdn4.iconfinder.com/data/icons/social-media-and-logos-11/32/Logo_Github-1024.png"></a>
+            </li>
+            <li class="w-6">
+                <a href="https://www.niet.co.in/"><img src="https://th.bing.com/th/id/OIP.hbuRkuQ46Mm7aonMXpmhPAHaHa?rs=1&pid=ImgDetMain"></a>
+            </li>
+        </ul>
+        <ul class='flex justify-center space-x-4 mt-2'>
+            <li>
+                <p>Aman:</p>
+            </li>
+            <li class="w-6">
+                <a href="https://www.linkedin.com/in/aman-jha-543a40293/"><img src="https://pngimg.com/uploads/linkedIn/linkedIn_PNG7.png"></a>
+            </li>
+            <li class="w-6">
+                <a href="https://github.com/ak9102848"><img src="https://cdn4.iconfinder.com/data/icons/social-media-and-logos-11/32/Logo_Github-1024.png"></a>
+            </li>
+            <li class="w-6">
+                <a href="https://www.niet.co.in/"><img src="https://th.bing.com/th/id/OIP.hbuRkuQ46Mm7aonMXpmhPAHaHa?rs=1&pid=ImgDetMain"></a>
+            </li>
+        </ul>
+    </section>
     </footer>
 
     <!-- JavaScript Section -->
