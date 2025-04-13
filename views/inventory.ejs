@@ -17,9 +17,12 @@
             --table-header-bg: #2d483a;
             --border-color: black;
             --delete-color: #e53e3e;
-            --highlight-yellow: #ffeb3b;
-            --highlight-red: #ff4c4c;
-            --warning-color: #ff9800; /* Warning color for low stock */
+            --highlight-yellow: #eab308; /* Expiring soon */
+            --highlight-red: #Ef4444; /* Expired */
+            --highlight-orange: #f97316; /* Low stock */
+            --highlight-violet: #9c27b0; /* Expiring soon + Low stock */
+            --highlight-green: #4caf50; /* Normal item */
+            --warning-color: #ff9800;
         }
 
         * {
@@ -105,10 +108,27 @@
 
         .highlight-yellow {
             background-color: var(--highlight-yellow) !important;
+            color: black !important;
         }
 
         .highlight-red {
             background-color: var(--highlight-red) !important;
+            color: white !important;
+        }
+
+        .highlight-orange {
+            background-color: var(--highlight-orange) !important;
+            color: black !important;
+        }
+
+        .highlight-violet {
+            background-color: var(--highlight-violet) !important;
+            color: white !important;
+        }
+
+        .highlight-green {
+            background-color: var(--highlight-green) !important;
+            color: black !important;
         }
 
         .low-stock-warning {
@@ -137,7 +157,7 @@
             padding: 10px;
             width: 70%;
             border-radius: 30px;
-            background-color: var(--table-bg);
+            background-color: var(#fff);
             color: var(--color);
             border: 1px solid var(--border-color);
         }
@@ -245,10 +265,7 @@
                 const inventory = JSON.parse(storedInventory);
                 inventory.forEach(item => addRowToTable(item));
             }
-            checkLowStock(); // Check low stock items after loading
-            highlightExpiringItems(); // Highlight items that are expiring
-            checkExpiredItems(); // Check for expired items
-            checkExpiringSoonItems(); // Check for expiring soon items
+            updateItemHighlights(); // Check and update all item highlights
         }
 
         function saveInventory() {
@@ -295,35 +312,152 @@
                 }
 
                 saveInventory();
-                checkLowStock(); // Update low stock items after decreasing quantity
-                checkExpiredItems(); // Check for expired items after decreasing quantity
-                checkExpiringSoonItems(); // Check for expiring soon items after decreasing quantity
+                updateItemHighlights(); // Update highlights after quantity change
+            });
+        }
+
+        function updateItemHighlights() {
+            checkLowStock(); // Check low stock items
+            checkExpiredItems(); // Check expired items
+            checkExpiringSoonItems(); // Check expiring soon items
+            
+            // Apply the new color coding scheme
+            applyColorCoding();
+        }
+
+        function applyColorCoding() {
+            const rows = document.querySelectorAll('table tr');
+            const currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0);
+            
+            // Skip the header row
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                
+                // Remove all highlight classes first
+                row.classList.remove('highlight-yellow', 'highlight-red', 'highlight-orange', 'highlight-violet', 'highlight-green');
+                
+                const quantityCell = row.cells[2];
+                const expiryDateCell = row.cells[4];
+                
+                // Check conditions
+                let isLowStock = false;
+                let isExpiringSoon = false;
+                let isExpired = false;
+                
+                // Check quantity
+                if (quantityCell && parseInt(quantityCell.innerHTML) < 6) {
+                    isLowStock = true;
+                }
+                
+                // Check expiry
+                if (expiryDateCell && expiryDateCell.innerHTML !== 'N/A') {
+                    const expiryDate = new Date(expiryDateCell.innerHTML);
+                    expiryDate.setHours(0, 0, 0, 0);
+                    const dayDifference = Math.ceil((expiryDate - currentDate) / (1000 * 60 * 60 * 24));
+                    
+                    if (dayDifference < 0) {
+                        isExpired = true;
+                    } else if (dayDifference <= 6) {
+                        isExpiringSoon = true;
+                    }
+                }
+                
+                // Apply appropriate highlight class based on conditions
+                if (isExpired) {
+                    row.classList.add('highlight-red'); // Red for expired
+                } else if (isLowStock && isExpiringSoon) {
+                    row.classList.add('highlight-violet'); // Violet for both expiring soon and low stock
+                } else if (isLowStock) {
+                    row.classList.add('highlight-orange'); // Orange for low stock
+                } else if (isExpiringSoon) {
+                    row.classList.add('highlight-yellow'); // Yellow for expiring soon
+                } else {
+                    row.classList.add('highlight-green'); // Green for normal items
+                }
+            }
+            
+            // Sort the table rows according to priority
+            sortTableByPriority();
+            
+            // Show warning if there are any low stock items
+            const lowStockItems = Array.from(rows).slice(1).filter(row => 
+                row.classList.contains('highlight-orange') || row.classList.contains('highlight-violet')
+            );
+            
+            lowStockWarning.style.display = lowStockItems.length > 0 ? 'block' : 'none';
+        }
+
+        // New function to sort the table according to specified priority
+        function sortTableByPriority() {
+            const table = document.getElementById('inventoryTable');
+            const tbody = table.tBodies[0] || table;
+            const rows = Array.from(tbody.querySelectorAll('tr')).slice(1); // Skip header row
+            const header = tbody.rows[0];
+            
+            // Define the priority order (higher priority items appear first)
+            const priorityOrder = {
+                'highlight-red': 1,      // Expired items (highest priority)
+                'highlight-orange': 2,   // Low stock items
+                'highlight-yellow': 3,   // Expiring soon items
+                'highlight-violet': 4,   // Expiring soon + Low stock items
+                'highlight-green': 5     // Normal items (lowest priority)
+            };
+            
+            // Sort rows based on their highlight class priority
+            rows.sort((rowA, rowB) => {
+                let priorityA = 999; // Default high number for no class
+                let priorityB = 999;
+                
+                // Determine priority of row A
+                Object.keys(priorityOrder).forEach(className => {
+                    if (rowA.classList.contains(className)) {
+                        priorityA = priorityOrder[className];
+                    }
+                });
+                
+                // Determine priority of row B
+                Object.keys(priorityOrder).forEach(className => {
+                    if (rowB.classList.contains(className)) {
+                        priorityB = priorityOrder[className];
+                    }
+                });
+                
+                return priorityA - priorityB;
+            });
+            
+            // Remove all rows (except header) and re-append in the new order
+            while (tbody.rows.length > 1) {
+                tbody.deleteRow(1);
+            }
+            
+            // Add sorted rows back to the table
+            rows.forEach(row => {
+                tbody.appendChild(row);
             });
         }
 
         function checkLowStock() {
             const rows = document.querySelectorAll('table tr');
             let lowStockItems = [];
-            let lowStock = false;
 
             rows.forEach(row => {
                 const quantityCell = row.cells[2];
                 if (quantityCell) {
                     const quantity = parseInt(quantityCell.innerHTML);
                     if (quantity < 6) {
-                        lowStock = true;
                         lowStockItems.push(row.cells[0].innerHTML); // Store item name
                     }
                 }
             });
 
-            lowStockWarning.style.display = lowStock ? 'block' : 'none';
             // Store low stock items in localStorage
             localStorage.setItem('lowStockItems', JSON.stringify(lowStockItems));
         }
 
-        function highlightExpiringItems() {
+        function checkExpiredItems() {
             const rows = document.querySelectorAll('table tr');
+            const expiredItems = [];
             const currentDate = new Date();
             currentDate.setHours(0, 0, 0, 0);
 
@@ -332,28 +466,6 @@
                 if (expiryDateCell && expiryDateCell.innerHTML !== 'N/A') {
                     const expiryDate = new Date(expiryDateCell.innerHTML);
                     expiryDate.setHours(0, 0, 0, 0);
-                    const dayDifference = Math.ceil((expiryDate - currentDate) / (1000 * 60 * 60 * 24));
-
-                    row.classList.remove('highlight-yellow', 'highlight-red');
-                    if (dayDifference < 0) {
-                        row.classList.add('highlight-red');
-                    } else if (dayDifference <= 6) {
-                        row.classList.add('highlight-yellow');
-                    }
-                }
-            });
-        }
-
-        function checkExpiredItems() {
-            const rows = document.querySelectorAll('table tr');
-            const expiredItems = [];
-
-            rows.forEach(row => {
-                const expiryDateCell = row.cells[4];
-                if (expiryDateCell && expiryDateCell.innerHTML !== 'N/A') {
-                    const expiryDate = new Date(expiryDateCell.innerHTML);
-                    const currentDate = new Date();
-                    currentDate.setHours(0, 0, 0, 0);
 
                     if (expiryDate < currentDate) {
                         expiredItems.push(row.cells[0].innerHTML); // Store item name
@@ -458,10 +570,7 @@
 
                 addRowToTable(newItem);
                 saveInventory();
-                checkLowStock(); // Check for low stock after adding new item
-                highlightExpiringItems(); // Highlight items that are expiring
-                checkExpiredItems(); // Check for expired items after adding new item
-                checkExpiringSoonItems(); // Check for expiring soon items
+                updateItemHighlights(); // Update highlights after adding new item
             }
 
             const scannedItem = localStorage.getItem('scannedItem');
