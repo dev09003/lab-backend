@@ -344,12 +344,22 @@ function loadExpiredItems() {
 
     function loadShelfInventory() {
         const shelfInventory = JSON.parse(localStorage.getItem('shelfInventory')) || [
-            { name: 'Pipettes', shelf: 'A', row: '1' },
-            { name: 'Beakers', shelf: 'A', row: '2' },
-            { name: 'Flasks', shelf: 'A', row: '3' },
-            { name: 'Test Tubes', shelf: 'B', row: '1' },
-            { name: 'Graduated Cylinders', shelf: 'B', row: '2' },
-            { name: 'Burettes', shelf: 'B', row: '3' }
+        { name: 'Pipettes', shelf: 'A', row: '1' },
+    { name: 'Beakers', shelf: 'A', row: '2' },
+    { name: 'Flasks', shelf: 'A', row: '3' },
+    { name: 'Flasks', shelf: 'A', row: '4' },
+    { name: 'Test Tubes', shelf: 'B', row: '1' },
+    { name: 'Graduated Cylinders', shelf: 'B', row: '2' },
+    { name: 'Petri Dishes', shelf: 'B', row: '3' },
+    { name: 'Microscope Slides', shelf: 'B', row: '4' },
+    { name: 'Burettes', shelf: 'C', row: '1' },
+    { name: 'Crucibles', shelf: 'C', row: '2' },
+    { name: 'Thermometers', shelf: 'C', row: '3' },
+    { name: 'pH Meters', shelf: 'C', row: '4' },
+    { name: 'Bunsen Burners', shelf: 'D', row: '1' },
+    { name: 'Ring Stands', shelf: 'D', row: '2' },
+    { name: 'Clamps', shelf: 'D', row: '3' },
+    { name: 'Wire Gauzes', shelf: 'D', row: '4' }
         ];
 
         const shelfList = document.getElementById('shelf-list');
