@@ -83,6 +83,141 @@
           font-size: 0.9rem;
         }
       }
+        .login-container {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .login-container h2{
+        position: relative;
+        left: 10px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #333;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: #333;
+      }
+
+      input {
+        padding: 0.8rem;
+        margin-bottom: 1.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #007bff;
+      }
+
+      button {
+        padding: 0.8rem;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .signup-link {
+        text-align: center;
+        margin-top: 1.5rem;
+      }
+
+      .signup-link button {
+        background-color: #28a745;
+      }
+
+      .signup-link button:hover {
+        background-color: #218838;
+      }
+
+      .custom-dropdown {
+      position: relative;
+      width: 250px;
+      user-select: none;
+    }
+
+    .selected {
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      position: relative;
+      left: 10px;
+    }
+
+    .dropdown-options {
+      display: none;
+      border: 1px solid #ccc;
+      position: relative;
+      left: 50px;
+      width: 100%;
+      background: white;
+      z-index: 1;
+      border-radius: 5px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .dropdown-options.show {
+      display: block;
+    }
+
+    .dropdown-options div {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .dropdown-options div:hover {
+      background-color: #f0f0f0;
+    }
+
+    .dropdown-options img {
+      height: 30px;
+      width: 30px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+      /* Responsive styling */
+      @media (max-width: 768px) {
+        .login-container {
+          padding: 1.5rem;
+        }
+
+        input,
+        button {
+          font-size: 0.9rem;
+        }
+      }
     </style>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -92,6 +227,42 @@
   <body>
     <div class="signup-container">
       <h1>Signup</h1>
+      <div class="login-container">
+        <h2>Select Your Institution</h2>
+  
+    <div class="custom-dropdown" onclick="toggleDropdown()">
+      <div class="selected" id="selectedOption">Choose your Institution</div>
+      <div class="dropdown-options" id="dropdownOptions">
+        <div onclick="selectOption('NIET')">
+          <img src="https://scontent.fdel65-2.fna.fbcdn.net/v/t39.30808-6/429586473_729690202685625_5411994327588985165_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=yWXq87lGbl4Q7kNvwHlYKPm&_nc_oc=Adn5o4ByGrIUh10l4BoYsGGSGOjRQRXyVkNM8Opoax15ML7eW5p57AMS7D7VXNJeaM_nSFKKQgDTdYxn5DhpJFoM&_nc_zt=23&_nc_ht=scontent.fdel65-2.fna&_nc_gid=89CF5LtX-XN9PaUM96atDg&oh=00_AfEvXm5e-o7dcmh0N-cvn1GJcCiwooAVouI4i7WonGsNog&oe=67FD5A90" alt="NIET">
+          <span>NIET</span>
+        </div>
+        <div onclick="selectOption('Genetics Lab')">
+          <img src="https://2.imimg.com/data2/AS/UX/MY-3582887/sharda-university-250x250.jpg" alt="Genetics Lab">
+          <span>SHARDA UNIVERSITY</span>
+        </div>
+        <div onclick="selectOption('Biochemistry')">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/Official_Logo_of_CHRIST%28Deemed_to_be_University%29%2C_bangalore.jpg/180px-Official_Logo_of_CHRIST%28Deemed_to_be_University%29%2C_bangalore.jpg" alt="Biochemistry">
+          <span>CHRIST UNIVERSITY </span>
+        </div>
+        <div onclick="selectOption('Biophysics')">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4f/National_Institute_of_Technology%2C_Tiruchirappalli.svg/300px-National_Institute_of_Technology%2C_Tiruchirappalli.svg.png" alt="Biophysics">
+          <span>NIT TRICY</span>
+        </div>
+        <div onclick="selectOption('Biophysics')">
+          <img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/96/Logo_of_NIT_Jalandhar.png/220px-Logo_of_NIT_Jalandhar.png" alt="Biophysics">
+          <span>NIT JALANDHAR</span>
+        </div>
+        <div onclick="selectOption('Biophysics')">
+          <img src="https://iitr.ac.in/Departments/Metallurgical%20and%20Materials%20Engineering%20Department/assets/08c159cb811c2742199fed6b07c10860a7b8e777515377e20fe0f2d90f230657_iitr_logo.jpg" alt="Biophysics">
+          <span>IIT ROORKEE</span>
+        </div>
+        <div onclick="selectOption('Biophysics')">
+          <img src="https://i.pinimg.com/736x/7f/d8/a6/7fd8a6164786e6850acc29deb374e365.jpg" alt="Biophysics">
+          <span>GALGOTIYA UNIVERSITY</span>
+        </div>
+      </div>
+    </div>
       <form action="/user" method="post">
         <label for="name">Full Name</label>
         <input type="text" id="name" required name="name" />
@@ -103,5 +274,21 @@
         <button type="submit">Signup</button>
       </form>
     </div>
+    <script>
+      function toggleDropdown() {
+        document.getElementById('dropdownOptions').classList.toggle('show');
+      }
+  
+      function selectOption(value) {
+        document.getElementById('selectedOption').innerText = value;
+        document.getElementById('dropdownOptions').classList.remove('show');
+      }
+  
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.custom-dropdown')) {
+          document.getElementById('dropdownOptions').classList.remove('show');
+        }
+      });
+    </script>
   </body>
 </html>
